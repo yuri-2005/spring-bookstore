@@ -24,5 +24,8 @@ public class LivroService {
 	public Livro findById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
 	}
-
+	
+	public Livro insert(Livro obj) {
+		return repository.save(obj);
+	}
 }
