@@ -2,7 +2,6 @@ package com.yuri.cadastro_livros.services;
 
 import java.util.List;
 
-
 import org.springframework.stereotype.Service;
 
 import com.yuri.cadastro_livros.entities.Livro;
@@ -27,5 +26,20 @@ public class LivroService {
 	
 	public Livro insert(Livro obj) {
 		return repository.save(obj);
+	}
+	
+	public Livro update(Long id, Livro obj) {
+		Livro entity = repository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+		updateDate(entity, obj);
+		return repository.save(entity);
+		
+	}
+	
+	private void updateDate(Livro entity, Livro obj) {
+		entity.setTitulo(obj.getTitulo());
+		entity.setAutor(obj.getAutor());
+		entity.setAnoPublicacao(obj.getAnoPublicacao());
+		entity.setIsbn(obj.getIsbn());
+		
 	}
 }
