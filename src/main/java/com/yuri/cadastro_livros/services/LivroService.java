@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yuri.cadastro_livros.entities.Livro;
 import com.yuri.cadastro_livros.repositories.LivroRepository;
+import com.yuri.cadastro_livros.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class LivroService {
@@ -30,7 +31,7 @@ public class LivroService {
 	}
 	
 	public Livro update(Long id, Livro obj) {
-		Livro entity = repository.findById(id).orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+		Livro entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 		updateDate(entity, obj);
 		return repository.save(entity);
 		
@@ -48,7 +49,7 @@ public class LivroService {
 		try {
 			repository.deleteById(id);
 		}catch(EmptyResultDataAccessException e) {
-			 throw new RuntimeException("Livro não encontrado para deletar. ID: " + id);
+			 throw new ResourceNotFoundException(id);
 		}
 	}
 }
