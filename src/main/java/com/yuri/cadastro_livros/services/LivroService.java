@@ -2,6 +2,7 @@ package com.yuri.cadastro_livros.services;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.yuri.cadastro_livros.entities.Livro;
@@ -41,5 +42,13 @@ public class LivroService {
 		entity.setAnoPublicacao(obj.getAnoPublicacao());
 		entity.setIsbn(obj.getIsbn());
 		
+	}
+	
+	public void remove(Long id) {
+		try {
+			repository.deleteById(id);
+		}catch(EmptyResultDataAccessException e) {
+			 throw new RuntimeException("Livro não encontrado para deletar. ID: " + id);
+		}
 	}
 }
