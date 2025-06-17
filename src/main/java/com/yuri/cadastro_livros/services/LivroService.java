@@ -52,4 +52,12 @@ public class LivroService {
 			 throw new ResourceNotFoundException(id);
 		}
 	}
+	
+	public List<Livro> findByTitulo(String titulo){
+		return repository.findByTituloContainingIgnoreCase(titulo);
+	}
+	
+	public List<Livro> findByAutor(String autor){
+		return repository.findByAutorContainingIgnoreCase(autor);
+	}
 }
